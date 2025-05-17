@@ -13,15 +13,18 @@ import { JwtAuthGuard } from './guard/jwt.auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors: {
-      origin: [
-        'http://localhost:5437',
-        // add more
-        'https://your-frontend-domain.com',
-      ],
-      credentials: true,
-    },
-  })
+    cors: true,
+  });
+
+  // const app = await NestFactory.create(AppModule, {
+  //   cors: {
+  //     origin: [
+  //       'http://localhost:5437',
+  //       // add more
+  //     ],
+  //     credentials: true,
+  //   },
+  // })
 
   const configService = app.get(ConfigService);
   const jwtService = app.get(JwtService);

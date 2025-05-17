@@ -1,7 +1,7 @@
-import { Controller, Post, Body, Headers } from '@nestjs/common';
+import { Controller, Post, Body, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { EcommerceService } from '../service/ecommerce.service';
-import * as jwt from 'jsonwebtoken';
+import { Request } from 'express';
 
 @ApiTags('ecommerce')
 @ApiBearerAuth()
@@ -24,11 +24,10 @@ export class EcommerceController {
     })
     checkout(
         @Body() body: { price: number; voucherKey: string },
-        @Headers('authorization') authHeader: string
+        @Req() req: Request,
     ) {
-        const token = authHeader?.replace('Bearer ', '');
-        const decoded: any = jwt.decode(token);
-        const username = decoded?.username;
+        const user = req.user as { username: string };
+        const username = user?.username;
 
         return this.ecommerceService.checkout(body.price, body.voucherKey, username);
     }
