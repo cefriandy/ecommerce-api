@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { RestModule } from './rest/rest.module';
 import { EcommerceModule } from './ecommerce/ecommerce.module';
 import { JwtModule } from '@nestjs/jwt';
+import { CompanyModule } from './company/company.module';
 
 @Global()
 @Module({
@@ -37,6 +38,7 @@ import { JwtModule } from '@nestjs/jwt';
     UserModule,
     AuthModule,
     EcommerceModule,
+    CompanyModule,
     RestModule
   ],
   exports: [JwtModule]

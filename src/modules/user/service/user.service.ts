@@ -2,12 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,
+        private readonly httpService: HttpService
     ) { }
 
     async findOrCreate(googleProfile: any): Promise<User> {
@@ -32,5 +35,21 @@ export class UserService {
         }
 
         return user;
+    }
+
+    async fetchUsers(page: number = 1, results: number = 10) {
+        const url = `https://randomuser.me/api?results=${results}&page=${page}`;
+        const response = await firstValueFrom(this.httpService.get(url));
+        const users = response.data.results;
+
+        return users.map((user) => ({
+            name: user.name,
+            location: user.location,
+            email: user.email,
+            agent: user.login.username,
+            phone: user.phone,
+            cell: user.cell,
+            picture: user.picture,
+        }));
     }
 }
