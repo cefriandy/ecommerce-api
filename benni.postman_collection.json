@@ -27,6 +27,39 @@
 			"response": []
 		},
 		{
+			"name": "random user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/random-users?page=1&results=10&search=Mrs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"random-users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "results",
+							"value": "10"
+						},
+						{
+							"key": "search",
+							"value": "Mrs"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "auth google",
 			"request": {
 				"method": "GET",
@@ -50,14 +83,29 @@
 			"name": "ecommer api",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjIxMDA4Yi0wODRlLTRkMDAtYmQyNy04YTljMTYxMGJhZmMiLCJlbWFpbCI6ImNlZnJpYW5keXNpbWFybWF0YUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImNlZnJpYW5keXNpbWFybWF0YSIsImlhdCI6MTc0NzQxMzgyMiwiZXhwIjoxNzQ3NDE3NDIyfQ.WqG-qsQL0BHDoTOQcEKHMm0mbwvHMeUflTmzmo103hM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"price\": 5000000,\r\n    \"voucherKey\": \"VOUCHER50\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:3001/ecommerce/checkout",
+					"raw": "http://localhost:3000/ecommerce/checkout",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "3000",
 					"path": [
 						"ecommerce",
 						"checkout"
@@ -67,29 +115,19 @@
 			"response": []
 		},
 		{
-			"name": "random-user",
+			"name": "companies",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://randomuser.me/api?results=3&page=1",
-					"protocol": "https",
+					"raw": "http://localhost:3000/companies",
+					"protocol": "http",
 					"host": [
-						"randomuser",
-						"me"
+						"localhost"
 					],
+					"port": "3000",
 					"path": [
-						"api"
-					],
-					"query": [
-						{
-							"key": "results",
-							"value": "3"
-						},
-						{
-							"key": "page",
-							"value": "1"
-						}
+						"companies"
 					]
 				}
 			},

@@ -9,7 +9,8 @@ export class UserController {
     async getUsers(
         @Query('page') page: number = 1,
         @Query('results') results: number = 10,
+        @Query('search') search?: string,
     ) {
-        return this.userService.fetchUsers(page, results);
+        return this.userService.fetchUsers(page, results, search);
     }
 }

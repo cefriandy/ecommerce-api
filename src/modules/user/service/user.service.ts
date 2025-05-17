@@ -37,12 +37,12 @@ export class UserService {
         return user;
     }
 
-    async fetchUsers(page: number = 1, results: number = 10) {
+    async fetchUsers(page: number = 1, results: number = 10, search?: string) {
         const url = `https://randomuser.me/api?results=${results}&page=${page}`;
         const response = await firstValueFrom(this.httpService.get(url));
         const users = response.data.results;
 
-        return users.map((user) => ({
+        const transformed = users.map((user) => ({
             name: `${user.name.title}. ${user.name.first} ${user.name.last}`,
             location: `${user.location.street.number}, ${user.location.street.name}, ${user.location.city}, ${user.location.state}, ${user.location.country}`,
             email: user.email,
@@ -55,5 +55,19 @@ export class UserService {
                 user.picture.thumbnail,
             ],
         }));
+
+        if (search) {
+            const lowerSearch = search.toLowerCase();
+            return transformed.filter((user) =>
+                Object.values(user).some((value) => {
+                    if (Array.isArray(value)) {
+                        return value.some((v) => typeof v === 'string' && v.toLowerCase().includes(lowerSearch));
+                    }
+                    return typeof value === 'string' && value.toLowerCase().includes(lowerSearch);
+                })
+            );
+        }
+
+        return transformed;
     }
 }
