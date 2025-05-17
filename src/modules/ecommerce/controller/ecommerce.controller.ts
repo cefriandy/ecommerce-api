@@ -1,5 +1,4 @@
-import { Controller, Post, UseGuards, Body, Headers } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Post, Body, Headers } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { EcommerceService } from '../service/ecommerce.service';
 import * as jwt from 'jsonwebtoken';
@@ -13,7 +12,6 @@ export class EcommerceController {
     ) { }
 
     @Post('checkout')
-    @UseGuards(AuthGuard('jwt'))
     @ApiBody({
         schema: {
             type: 'object',

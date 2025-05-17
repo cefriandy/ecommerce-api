@@ -9,6 +9,7 @@ import * as rTracer from 'cls-rtracer';
 
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { JwtAuthGuard } from './guard/jwt.auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -26,7 +27,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: false }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
-
+  app.useGlobalGuards(new JwtAuthGuard(reflector));
   app.use(rTracer.expressMiddleware({ useHeader: true, echoHeader: true }));
 
   const options = new DocumentBuilder()
