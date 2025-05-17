@@ -2,16 +2,26 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Company } from '../entity/company.entity';
+import { User } from '../../user/entity/user.entity'; // Adjust path as needed
 
 @Injectable()
 export class CompanyService {
     constructor(
         @InjectRepository(Company)
         private readonly companyRepository: Repository<Company>,
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>,
     ) { }
 
-    async getAllCompaniesWithUserInfo() {
-        const companies = await this.companyRepository.find({ relations: ['user'] });
+    async getCompaniesByUser(username: string) {
+        const user = await this.userRepository.findOne({ where: { username } });
+        if (!user) {
+            return [];
+        }
+
+        const companies = await this.companyRepository.find({
+            where: { user: { id: user.id } },
+        });
 
         return companies.map((company) => ({
             user_id: company.user.id,

@@ -38,11 +38,11 @@ export class UserService {
     }
 
     async fetchUsers(page: number = 1, results: number = 10, search?: string) {
-        const url = `https://randomuser.me/api?results=${results}&page=${page}`;
+        const url = `https://randomuser.me/api?results=${results}&page=${page}&seed=example`;
         const response = await firstValueFrom(this.httpService.get(url));
         const users = response.data.results;
 
-        const transformed = users.map((user) => ({
+        const transformed = users.map((user: { name: { title: any; first: any; last: any; }; location: { street: { number: any; name: any; }; city: any; state: any; country: any; }; email: any; registered: { age: { toString: () => any; }; }; phone: any; cell: any; picture: { large: any; medium: any; thumbnail: any; }; }) => ({
             name: `${user.name.title}. ${user.name.first} ${user.name.last}`,
             location: `${user.location.street.number}, ${user.location.street.name}, ${user.location.city}, ${user.location.state}, ${user.location.country}`,
             email: user.email,
