@@ -5,7 +5,6 @@ import { ConfigService } from '@nestjs/config';
 import { RequestContext } from 'nestjs-request-context';
 import { HttpService } from '@nestjs/axios';
 import { JwtService } from '@nestjs/jwt';
-import rTracer from 'cls-rtracer';
 
 @Injectable()
 export class RestService {
@@ -40,8 +39,6 @@ export class RestService {
             config.headers = { ...headers } as AxiosRequestHeaders;
 
             config.headers['Authorization'] = config.headers?.['Authorization'] ?? '';
-            config.headers['X-Request-Id'] = rTracer.id() ?? '';
-
             return config;
         });
     }
@@ -77,4 +74,6 @@ export class RestService {
     put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Observable<AxiosResponse<T>> {
         return this.httpService.put(url, data, config);
     }
+
+    //optional: we can add logger here
 }

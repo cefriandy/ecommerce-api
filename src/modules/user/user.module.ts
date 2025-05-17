@@ -4,13 +4,14 @@ import { HttpModule } from '@nestjs/axios';
 import { User } from './entity/user.entity';
 import { UserService } from './service/user.service';
 import { UserController } from './controller/user.controller';
+import { RestService } from '../rest/service/rest.service';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([User]),
         HttpModule,
     ],
-    providers: [UserService],
+    providers: [UserService, RestService],
     controllers: [UserController],
     exports: [UserService],
 })

@@ -3,7 +3,6 @@ import { AppModule } from './modules/app.module';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ClassSerializerInterceptor } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { json } from 'express';
 import * as fs from 'fs';
 import * as cookieParser from 'cookie-parser';
 import * as rTracer from 'cls-rtracer';

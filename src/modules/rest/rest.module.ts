@@ -3,7 +3,6 @@ import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 import { HttpConfigService } from '../../config/http.config.service';
 import { RestService } from './service/rest.service';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [

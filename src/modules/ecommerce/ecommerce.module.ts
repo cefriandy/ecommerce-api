@@ -5,7 +5,6 @@ import { EcommerceService } from './service/ecommerce.service';
 import { Voucher } from './entity/voucher.entity';
 import { Transaction } from './entity/transaction.entity';
 import { User } from '../user/entity/user.entity';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [

@@ -6,11 +6,11 @@ export class Voucher {
   id: string;
 
   @Column({ unique: true })
-  key: string; // e.g., "VOUCHER50"
+  key: string;
 
   @Column({ unique: true })
-  name: string; // e.g., "50% Discount Voucher"
+  name: string;
 
   @Column('float')
-  value: number; // e.g., 50 for 50%
+  value: number;
 }

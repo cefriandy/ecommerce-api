@@ -20,7 +20,7 @@ export class EcommerceService {
 
     async checkout(price: number, voucherKey: string, username: string) {
         const voucher = await this.voucherRepo.findOne({ where: { key: voucherKey } });
-        
+
         if (!voucher) throw new NotFoundException('Voucher not found');
 
         const user = await this.userRepo.findOne({ where: { username: username } });
