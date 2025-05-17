@@ -43,13 +43,17 @@ export class UserService {
         const users = response.data.results;
 
         return users.map((user) => ({
-            name: user.name,
-            location: user.location,
+            name: `${user.name.title}. ${user.name.first} ${user.name.last}`,
+            location: `${user.location.street.number}, ${user.location.street.name}, ${user.location.city}, ${user.location.state}, ${user.location.country}`,
             email: user.email,
-            agent: user.login.username,
+            age: user.registered.age.toString(),
             phone: user.phone,
             cell: user.cell,
-            picture: user.picture,
+            picture: [
+                user.picture.large,
+                user.picture.medium,
+                user.picture.thumbnail,
+            ],
         }));
     }
 }
